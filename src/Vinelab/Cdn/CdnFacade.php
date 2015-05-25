@@ -127,7 +127,15 @@ class CdnFacade implements CdnFacadeInterface
 
         // remove slashes from begging and ending of the path
         // and append directories if needed
-        $clean_path = $prepend . $this->helper->cleanPath($path);
+        if ($this->configurations['providers']['aws']['s3']['cloudfront']['use'] === true) 
+        {
+             $clean_path = $this->helper->cleanPath($path);
+        }
+        else 
+        {
+             $clean_path = $prepend . $this->helper->cleanPath($path);
+        }
+       
 
         // call the provider specific url generator
         return $this->provider->urlGenerator($clean_path);
