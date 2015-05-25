@@ -27,10 +27,10 @@ return [
     | Here you may specify which of the CDN providers below you wish
 	| to use as your default provider for all CDN work.
     |
-    | Supported provider: Amazon S3 (aws.s3)
+    | Supported provider: Amazon S3 (AwsS3)
     |
     */
-    'default' => 'aws.s3',
+    'default' => 'AwsS3',
 
     /*
     |--------------------------------------------------------------------------
@@ -110,23 +110,22 @@ return [
                 */
                 'acl' => 'public-read',
 
-                'metadata' => [],
-
-                'expires' => gmdate("D, d M Y H:i:s T", strtotime("+5 years")),
-
-                'cache-control' => 'max-age=2628000',
-
+                /*
+                |--------------------------------------------------------------------------
+                | Use CloudFront as the CDN
+                |--------------------------------------------------------------------------
+                |
+                | Amazon S3 can be linked to CloudFront through distributions. This allows
+                | the files in your S3 buckets to be served from a number of global
+                | locations to achieve low latency and faster page load times.
+                */
+                'cloudfront' => [
+                    'use'       => false,
+                    'cdn_url'   => '',
+                    'version'   => '',
+                ],
 
             ],
-
-//            'cloudfront' => [
-//
-//                'credentials' => [
-//                    'key'       => '',
-//                    'secret'    => '',
-//                ],
-//
-//            ],
 
         ],
 
