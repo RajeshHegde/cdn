@@ -135,7 +135,6 @@ class CdnFacade implements CdnFacadeInterface
         {
              $clean_path = $prepend . $this->helper->cleanPath($path);
         }
-       
 
         // call the provider specific url generator
         return $this->provider->urlGenerator($clean_path);
