@@ -109,13 +109,6 @@ class CdnFacade implements CdnFacadeInterface
     {
         // if the package is surpassed, then return the same $path
         // to load the asset from the localhost
-        if (isset($this->configurations['bypass']) && $this->configurations['bypass']) {
-            return Request::root() .'/'. $path;
-        }
-
-        if (!isset($path)) {
-            throw new EmptyPathException('Path does not exist.');
-        }
 
         // Add version number
 
@@ -124,6 +117,15 @@ class CdnFacade implements CdnFacadeInterface
             "build/" . $this->configurations['providers']['aws']['s3']['version'],
             $path
         );
+        
+        if (isset($this->configurations['bypass']) && $this->configurations['bypass']) {
+            return Request::root() .'/'. $path;
+        }
+
+        if (!isset($path)) {
+            throw new EmptyPathException('Path does not exist.');
+        }
+
 
         // remove slashes from begging and ending of the path
         // and append directories if needed
