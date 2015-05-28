@@ -205,19 +205,21 @@ class AwsS3Provider extends Provider implements ProviderInterface
         // upload each asset file to the CDN
         foreach ($assets as $file) {
 
+            $path = str_replace('public/', '', $file->getPathName());
+
             try {
                 $this->batch->add($this->s3_client->getCommand('PutObject', [
 
                     'Bucket' => $this->getBucket(),
                     // the bucket name
-                    'Key'    => str_replace('\\', '/', $file->getPathName()),
+                    'Key'    => str_replace('\\', '/', $path),
                     // the path of the file on the server (CDN)
                     'Body'   => fopen($file->getRealPath(), 'r'),
                     // the path of the path locally
                     'ACL'    => $this->acl,
                     // the permission of the file
 
-					'CacheControl' => $this->default['providers']['aws']['s3']['cache-control'],
+                    'CacheControl' => $this->default['providers']['aws']['s3']['cache-control'],
                     'MetaData' => $this->default['providers']['aws']['s3']['metadata'],
                     "Expires" => $this->default['providers']['aws']['s3']['expires']
 
