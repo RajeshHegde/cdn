@@ -112,12 +112,6 @@ class CdnFacade implements CdnFacadeInterface
 
         // Add version number
 
-        $path = str_replace(
-            "build",
-            "build/" . $this->configurations['providers']['aws']['s3']['version'],
-            $path
-        );
-
         if (isset($this->configurations['bypass']) && $this->configurations['bypass']) {
             return Request::root() .'/'. $path;
         }
