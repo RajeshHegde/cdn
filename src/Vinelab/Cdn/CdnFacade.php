@@ -77,7 +77,7 @@ class CdnFacade implements CdnFacadeInterface
     public function asset($path)
     {
         // if asset always append the public/ dir to the path (since the user should not add public/ to asset)
-        return $this->generateUrl($path, 'public/');
+        return $this->generateUrl($path, '');
     }
 
 
@@ -117,7 +117,7 @@ class CdnFacade implements CdnFacadeInterface
             "build/" . $this->configurations['providers']['aws']['s3']['version'],
             $path
         );
-        
+
         if (isset($this->configurations['bypass']) && $this->configurations['bypass']) {
             return Request::root() .'/'. $path;
         }
@@ -126,17 +126,9 @@ class CdnFacade implements CdnFacadeInterface
             throw new EmptyPathException('Path does not exist.');
         }
 
-
         // remove slashes from begging and ending of the path
         // and append directories if needed
-        if ($this->configurations['providers']['aws']['s3']['cloudfront']['use'] === true) 
-        {
-             $clean_path = $this->helper->cleanPath($path);
-        }
-        else 
-        {
-             $clean_path = $prepend . $this->helper->cleanPath($path);
-        }
+        $clean_path = $prepend . $this->helper->cleanPath($path);
 
         // call the provider specific url generator
         return $this->provider->urlGenerator($clean_path);
