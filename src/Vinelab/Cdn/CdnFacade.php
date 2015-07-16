@@ -113,7 +113,7 @@ class CdnFacade implements CdnFacadeInterface
         // Add version number
 
         if (isset($this->configurations['bypass']) && $this->configurations['bypass']) {
-            return Request::root() .'/'. $path;
+            return '//' . Request::server ("HTTP_HOST") . '/' . $path;
         }
 
         if (!isset($path)) {
