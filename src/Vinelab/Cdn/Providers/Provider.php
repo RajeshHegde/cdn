@@ -1,18 +1,18 @@
 <?php
+
 namespace Vinelab\Cdn\Providers;
 
 use Vinelab\Cdn\Providers\Contracts\ProviderInterface;
 
 /**
- * Class Provider
+ * Class Provider.
  *
  * @category Drivers Abstract Class
- * @package  Vinelab\Cdn\Providers
+ *
  * @author   Mahmoud Zalt <mahmoud@vinelab.com>
  */
 abstract class Provider implements ProviderInterface
 {
-
     /**
      * @var string
      */
@@ -26,6 +26,16 @@ abstract class Provider implements ProviderInterface
     /**
      * @var string
      */
+    protected $region;
+
+    /**
+     * @var string
+     */
+    protected $version;
+
+    /**
+     * @var string
+     */
     protected $url;
 
     /**
@@ -33,5 +43,5 @@ abstract class Provider implements ProviderInterface
      */
     public $console;
 
-    abstract function upload($assets);
-} 
+    abstract public function upload($assets);
+}

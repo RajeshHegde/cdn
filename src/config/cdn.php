@@ -2,7 +2,6 @@
 
 return [
 
-
     /*
     |--------------------------------------------------------------------------
     | Bypass loading assets from the CDN
@@ -16,7 +15,6 @@ return [
     | Default: false
     |
     */
-
     'bypass' => false,
 
     /*
@@ -25,7 +23,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | Here you may specify which of the CDN providers below you wish
-	| to use as your default provider for all CDN work.
+    | to use as your default provider for all CDN work.
     |
     | Supported provider: Amazon S3 (AwsS3)
     |
@@ -61,9 +59,13 @@ return [
     | CDN Supported Providers
     |--------------------------------------------------------------------------
     |
-	| Here are each of the CDN providers setup for your application.
-	| Of course, examples of configuring each provider platform that is
-	| supported by Laravel is shown below to make development simple.
+    | Here are each of the CDN providers setup for your application.
+    | Of course, examples of configuring each provider platform that is
+    | supported by Laravel is shown below to make development simple.
+    |
+    | Note: Credentials must be set in the .env file:
+    |         AWS_ACCESS_KEY_ID
+    |         AWS_SECRET_ACCESS_KEY
     |
     */
     'providers' => [
@@ -72,10 +74,27 @@ return [
 
             's3' => [
 
-                'credentials' => [
-                    'key'       => '',
-                    'secret'    => '',
-                ],
+                /*
+                |--------------------------------------------------------------------------
+                | Web Service Version
+                |--------------------------------------------------------------------------
+                |
+                | The version of the web service to utilize.
+                | http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/configuration.html#version
+                |
+                */
+                'version' => 'latest',
+
+                /*
+                |--------------------------------------------------------------------------
+                | Region to Connect
+                |--------------------------------------------------------------------------
+                |
+                | List of available regions:
+                | http://docs.aws.amazon.com/general/latest/gr/rande.html#awsconfig_region
+                |
+                */
+                'region' => '',
 
                 /*
                 |--------------------------------------------------------------------------
@@ -92,9 +111,11 @@ return [
                 |
                 */
                 'buckets' => [
+
                     'bucket-name' => '*',
-                    //        'your-js-bucket-name-here'   =>  ['public/js'],
-                    //        'your-css-bucket-name-here'  =>  ['public/css'],
+                    // examples:
+                    //   'your-js-bucket-name-here'   =>  ['public/js'],
+                    //   'your-css-bucket-name-here'  =>  ['public/css'],
                 ],
 
                 /*
@@ -107,66 +128,60 @@ return [
                 | The following list is a set of canned ACLs and the associated
                 | predefined grants: private, public-read, public-read-write, authenticated-read
                 | bucket-owner-read, bucket-owner-full-control, log-delivery-write
+                |
                 */
                 'acl' => 'public-read',
 
                 /*
                 |--------------------------------------------------------------------------
-                | Use CloudFront as the CDN
+                | CloudFront as CDN
                 |--------------------------------------------------------------------------
                 |
                 | Amazon S3 can be linked to CloudFront through distributions. This allows
                 | the files in your S3 buckets to be served from a number of global
                 | locations to achieve low latency and faster page load times.
+                |
                 */
                 'cloudfront' => [
-                    'use'       => false,
-                    'cdn_url'   => ''
+                    'use' => false,
+                    'cdn_url' => '',
                 ],
 
                 /*
                 |--------------------------------------------------------------------------
-                | Add metadata to each s3 file
+                | Metadata of S3 Files
                 |--------------------------------------------------------------------------
-                |   Add metadata to each s3 file
+                |
+                | Add metadata to each S3 file
+                |
                 */
                 'metadata' => [],
 
                 /*
                 |--------------------------------------------------------------------------
-                | Add expiry data to file
+                | Files Expiry Data
                 |--------------------------------------------------------------------------
-                |   Add expiry data to file
+                |
+                | Add expiry data to file
+                |
                 */
-                'expires' => gmdate("D, d M Y H:i:s T", strtotime("+5 years")),
+                'expires' => gmdate('D, d M Y H:i:s T', strtotime('+5 years')),
 
                 /*
                 |--------------------------------------------------------------------------
-                | Add browser level cache
+                | Browser Level Cache
                 |--------------------------------------------------------------------------
-                |   Add browser level cache
+                |
+                | Add browser level cache
+                |
                 */
                 'cache-control' => 'max-age=2628000',
-
-                /*
-                |--------------------------------------------------------------------------
-                | Add version number
-                |--------------------------------------------------------------------------
-                |   Add version number
-                */
-                'version'   => ''
 
             ],
 
         ],
 
-//        'cloudflare' => [
-//            'key'       => '',
-//            'secret'    => '',
-//        ],
-
     ],
-
     /*
     |--------------------------------------------------------------------------
     | Files to Include
@@ -178,10 +193,10 @@ return [
     | Enter the full paths of directories (starting from the application root).
     |
     */
-    'include'    => [
-        'directories'   => ['public'],
-        'extensions'    => [],
-        'patterns'      => [],
+    'include' => [
+        'directories' => ['public'],
+        'extensions' => [],
+        'patterns' => [],
     ],
 
     /*
@@ -195,12 +210,12 @@ return [
     | 'hidden' is a boolean to excludes "hidden" directories and files (starting with a dot)
     |
     */
-    'exclude'    => [
-        'directories'   => [],
-        'files'         => [],
-        'extensions'    => [],
-        'patterns'      => [],
-        'hidden'        => true,
+    'exclude' => [
+        'directories' => [],
+        'files' => [],
+        'extensions' => [],
+        'patterns' => [],
+        'hidden' => true,
     ],
 
 ];
